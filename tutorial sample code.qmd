@@ -1,0 +1,72 @@
+---
+title: "tutorial 2 sample code"
+format: pdf
+editor: visual
+author: "Randall Ni"
+date: "21 Jan 2023"
+---
+
+## Introduction
+
+This is my sample code for tutorial 2. It contains the data set of bicycle theft obtained from open data toronto. It has been cleaned, and a graph of mean price of bike stolen in relation to hour of the day has been produced for further analysis. 
+
+## Running Code
+
+```{r}
+##Load libraries (prep work)
+install.packages("janitor")
+library(opendatatoronto)
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+##Obtain data
+bicycle_thefts_packages <- search_packages("bicycle thefts")
+
+bicycle_thefts_resources <- bicycle_thefts_packages %>%
+  list_package_resources()
+
+bicycle_thefts_statistics <- bicycle_thefts_resources %>%
+  filter(name == "bicycle-thefts - 4326.csv") |> 
+  get_resource()
+```
+
+```{r}
+##Clear Rows with NAs 
+bicycle_thefts_statistics <-
+  na.omit(bicycle_thefts_statistics)
+##Clean data, select what I wanted for graphing purposes
+bicycle_thefts_statistics <-
+  clean_names(bicycle_thefts_statistics)
+##Select needed columns
+bicycle_thefts_statistics <-
+  bicycle_thefts_statistics |>
+  select(report_hour, cost_of_bike)
+```
+
+```{r}
+##Wants to group by report hour 
+bicycle_thefts_statistics <-
+  bicycle_thefts_statistics |>
+  group_by(report_hour)
+
+##Calculated the mean of the cost of bikes
+bicycle_thefts_statistics <-
+  bicycle_thefts_statistics |>
+  summarise(
+    report_hour = report_hour,
+    mean_cost = mean(cost_of_bike)
+    )
+##cleaned out duplicated data
+bicycle_thefts_statistics <-
+  unique(bicycle_thefts_statistics)
+
+```
+
+```{r}
+##Adding bar graph for future analysis
+
+```
+
+
