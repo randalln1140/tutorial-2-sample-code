@@ -14,7 +14,7 @@ This is my sample code for tutorial 2. It contains the data set of bicycle theft
 
 ```{r}
   ##Load libraries (prep work)
-install.packages("janitor")
+#install.packages("janitor")
 library(opendatatoronto)
 library(tidyverse)
 library(janitor)
