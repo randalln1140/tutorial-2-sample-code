@@ -69,6 +69,12 @@ bicycle_thefts_statistics <-
 bicycle_thefts_statistics|>
   ggplot(aes(x = report_hour, y = mean_cost)) + geom_bar(stat = "identity", fill= "pink")
 ```
+```{r}
+simulated_data <-
+  tibble(seat = rep(1:175, each = 4), party = rep(x = 1:4, times = 175), votes = sample(x = 1:1000, size = 175 * 4))
+
+simulated_data$seat |> max() <= 175
+```
 
 
 
